@@ -9,41 +9,31 @@ class MainWindow(QWidget):
 
         self.setWindowTitle("My App")
         self.textedit = QTextEdit()
-        #textedit.setFixedSize(QSize(400, 300))
+        
+        self.username = QLineEdit()
+        self.username.setText('qwerty')
         self.lineedit = QLineEdit()
         #lineedit.setFixedSize(QSize(400, 50))
         self.lineedit.setMaxLength(20)
         self.lineedit.setPlaceholderText("Enter your text")
+        
         layout = QVBoxLayout()
         layout.addWidget(self.textedit)
+        layout.addWidget(self.username)
         layout.addWidget(self.lineedit)
         self.setLayout(layout)
         #widget.setReadOnly(True) # раскомментируйте, чтобы сделать доступным только для чтения
 
         self.lineedit.returnPressed.connect(self.return_pressed)
-        self.lineedit.selectionChanged.connect(self.selection_changed)
-        self.lineedit.textChanged.connect(self.text_changed)
-        self.lineedit.textEdited.connect(self.text_edited)
-
-        #self.setCentralWidget(self.lineedit)
         self.show()
+        self.lineedit.setFocus()
 
 
     def return_pressed(self):
         print("Return pressed!")
-        self.textedit.setText("BOOM!")
-
-    def selection_changed(self):
-        print("Selection changed")
-        print(self.textedit.selectedText())
-
-    def text_changed(self, s):
-        print("Text changed...")
-        print(s)
-
-    def text_edited(self, s):
-        print("Text edited...")
-        print(s)
+        message = self.username.text() + ': ' + self.lineedit.text()
+        self.textedit.append(message)
+        self.lineedit.setText("")
 
 app = QApplication([])
 
